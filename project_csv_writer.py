@@ -1,64 +1,76 @@
-## THIS IS OUR PROGRAM WHICH WILL BE USED TO TAKE JSON DATA 
+## THIS IS OUR PROGRAM WHICH WILL BE USED TO MAKE API CALLS AND CREATE DATA FOR THE APPLICATION
 
+from stravalib.client import Client
 import json
-import csv
-from decimal import *
-import datetime
+import time
 import pandas as pd
-from sklearn.cluster import KMeans 
+import numpy as np
+from sklearn.cluster import KMeans
+import swagger_client
+from swagger_client.rest import ApiException
 
 
 def main(args):
-    file = 'activities.txt'
-    opened = open(file,encoding='utf-8')
-    var = opened.read()
-    vars_js = json.loads(var)
-    vars_js_n = []
-    for each in vars_js:
-        if each['start_latitude'] is not None:
-            vars_js_n.append(each)
-    vars_js_k = []
-    for each in vars_js:
-        if each['start_latitude'] is not None:
-            vars_js_k.append({'distance':pow(each['distance']/150,.35),
-                          'elevtime':pow((each['total_elevation_gain']/each['moving_time'])*150,.8)})
-    df = pd.DataFrame(vars_js_k)
+    client = Client()
+    client_id = 40291
+    client_secret = '174e515190aa81a04416b147a32937ea5a86c672'
+    with open("stravtoken.json", "r") as stravtoken:
+        tokendict = json.load(stravtoken)
+    access_token = tokendict["access_token"]
+    refresh_token1 = tokendict["refresh_token"]
+    expires_at = tokendict['expires_at']  
+    if time.time() > tokendict['expires_at']:
+            refresh_response = client.refresh_access_token(client_id, client_secret, refresh_token1)
+            access_token = refresh_response['access_token']
+            refresh_token1 = refresh_response['refresh_token']
+            expires_at = refresh_response['expires_at']
+            with open("stravtoken.json", "w+") as json_file:
+                json.dump(refresh_response, json_file)
+                
+    client.access_token=access_token
+    client.refresh_access_token= refresh_token1
+    client.token_expires_at = expires_at
+
+    api_instance = swagger_client.ActivitiesApi()
+    api_instance.api_client.configuration.access_token = access_token
+    list_acts2 = []
+    for x in range (1,20):
+        try:
+            api_response = api_instance.get_logged_in_athlete_activities(page=x, per_page=100)
+            acts = str(api_response)
+            acts = acts.replace("\'", "\"")
+            acts = acts.replace("None", "0")
+            acts = acts.replace("False", "0")
+            acts = acts.replace("True", "1")
+            acts = json.loads(acts)
+            for each in acts:
+                if isinstance(each['start_latlng'],list):
+                    list_acts2.append([each['id'],each['distance']/1609.344,each['moving_time'],
+                                each['elapsed_time']-each['moving_time'],each['total_elevation_gain'],
+                                each['total_elevation_gain']/each['moving_time'],each['start_latlng'][0],
+                                       each['start_latlng'][1],each['map']['summary_polyline']])
+        except ApiException as e:
+            print(x)
+
+    acts_df = pd.DataFrame(list_acts2)
+    acts_df.columns = ['Run ID', 'Distance', 'Time', 'Resting Time','Elevation Gain',
+                       'Elevation Grade','Start Latitude','Start Longitude','Polyline']
+
+    acts_df_clean = acts_df.drop(acts_df[acts_df['Start Latitude']>34].index)
+    acts_df_clean = acts_df_clean.drop(acts_df[acts_df['Start Latitude']<33].index).reset_index()
+
+    clust_df = acts_df_clean.filter(['Distance','Elevation Grade'], axis=1)
+    clust_df['Distance'] = clust_df['Distance'].apply(lambda x: pow(x*150,.35))
+    clust_df['Elevation Grade'] = clust_df['Elevation Grade'].apply(lambda x: pow(x*150,.8))
     kmeans = KMeans(n_clusters=6,random_state=3425)
-    kmeans.fit(df)
-    labels = kmeans.predict(df)
-    labels2 = []
-    for each in labels:
-        if each==0:
-            labels2.append(2)
-        if each==1:
-            labels2.append(1)
-        if each==2:
-            labels2.append(0)
-        if each==3:
-            labels2.append(2)
-        if each==4:
-            labels2.append(0)
-        if each==5:
-            labels2.append(1)
+    kmeans.fit(clust_df)
+    labels = pd.Series(kmeans.predict(clust_df),name='Difficulty').to_frame().reset_index()
+    clust_df = pd.concat([clust_df, labels], axis=1, sort=False)
+    acts_df_clean = pd.concat([acts_df_clean, labels], axis=1, sort=False)
+    maps = {0:2,1:1,2:0,3:2,4:0,5:1}
+    acts_df_clean['Difficulty'] = acts_df_clean['Difficulty'].apply(lambda x: maps[x])
 
-    for x in range(len(labels)):
-        vars_js_n[x]['difficulty'] = labels2[x]
-
-    with open('acts_rows.csv', 'w', newline='') as csvfile:
-        actwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        actwriter.writerow(["Run ID","Distance","Time","Time Changed","Moving Time","Elevation Gain","Elevation Over Time",
-                    "Start Latitude","Start Longitude","Polyline","Difficulty"])
-        for each in vars_js_n:
-            lat_s = each['start_latitude']
-            lon_s = each['start_longitude']
-            #print(lat_s)
-            if lat_s is not None:
-                if (Decimal(lat_s) <= 34 and Decimal(lat_s) >= 33):
-                    time1 = str(datetime.timedelta(seconds=each['moving_time']))
-                    actwriter.writerow([each['id'],each['distance']/1609.344,each['moving_time'],time1,
-                        each['elapsed_time']-each['moving_time'],each['total_elevation_gain'],
-                        each['total_elevation_gain']/each['moving_time'],
-                        lat_s,lon_s,each['map']['summary_polyline'],each['difficulty']])
+    acts_df_clean.to_csv('activities.csv', index=False)
 
 if __name__=="__main__":
     import sys
