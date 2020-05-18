@@ -221,7 +221,7 @@
 
     var acts = []
 
-	var dataset = d3.dsv(",","acts_rows.csv", function(d)
+	var dataset = d3.dsv(",","activities.csv", function(d)
             {
                 //GET DATA
                 acts.push({id:d["Run ID"], distance:parseFloat(d["Distance"]),time:parseFloat(d["Time"]),elev:parseFloat(d["Elevation Gain"]),lat:parseFloat(d["Start Latitude"]),lon:parseFloat(d["Start Longitude"]),encoded:d["Polyline"],
