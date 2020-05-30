@@ -3,8 +3,10 @@
 <html>
   <head>
 	<title>Routelanta</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
       <style>
 		  	  html,body {
 			  height:100vh;
@@ -165,6 +167,8 @@
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 	}).addTo(mymap);
 
+
+
 	const attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 
     function getColor(d) {
@@ -200,6 +204,7 @@
 	var MarkerHeight = 60
 
 	var MarkerIcon = L.icon({
+		//TODO: Need to find a good png file and paste it in here
             riseOnHover: true,
 			iconUrl: 'pictures/Sports-Running-Man-icon.png', 
 			iconSize: [MarkerWidth, MarkerHeight],
@@ -816,7 +821,5 @@ svg.selectAll(".bar")
 			})
 
     </script>
-    <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
-  
   </body>
 </html>
