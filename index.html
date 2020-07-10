@@ -7,29 +7,32 @@
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+
+/* Additional Styles */
 html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+body {padding-top: 140px; }
 li.foot {display:inline-block;}
 div.heade {}
+.w3-color-gr {color:#616161}
+.page {}
 </style>
 <body class="w3-light-gray">
 
 <!-- Page Header -->
-<div class="w3-container w3-light-blue w3-center heade">
-  <h1 style="text-align:center;">Jack Richard Rager</h1><hr>
-  <div class="w3-bar w3-light-blue">
-      <a href="#" class="w3-bar-item w3-button">Home</a>
-      <a href="#" class="w3-bar-item w3-button">About Me</a>
-      <a href="#" class="w3-bar-item w3-button">Projects</a>
-      <a href="#" class="w3-bar-item w3-button">Photos</a>
+<div class="w3-container w3-indigo w3-center w3-top heade">
+  <h1 class = "w3-text-white" style="text-align:center;">Jack Richard Rager</h1>
+
+  <div class="w3-bar w3-indigo">
+      <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Resume')">Resume</button>
+      <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Photos')">Photos</button>
   </div>
 </div>
 
-<!-- Page Container -->
-<div class="w3-content w3-light-blue w3-margin-top" style="max-width:1400px;">
+<!-- Main Page Container -->
+<div id = "Resume" class="page w3-content w3-indigo w3-margin-top" style="max-width:1400px;">
   <hr>
 
-  <!-- The Grid -->
-  <!-- Grid-->
+  <!-- Grid -->
   <div class="w3-row-padding">
   
     <!-- Left Column -->
@@ -37,48 +40,46 @@ div.heade {}
     
       <div class="w3-white w3-text-grey w3-card-4">
         <div class="w3-display-container">
-          <img src="compos.jpg" style="height:90%;width:100%;opacity:0.9" alt="Avatar">
+          <img src="images/compos.jpg" style="height:90%;width:100%;opacity:0.9" alt="Avatar">
           <div class="w3-display-bottomleft w3-container w3-text-black">
             <h2 style="color:#616161;padding:auto">Jack Rager</h2>
           </div>
         </div>
         <div class="w3-container">
-          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Senior Undergraduate Engineering Student</p>
-          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-light-blue"></i>Atlanta, GA</p>
-          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-light-blue"></i>jackrager@gatech.edu</p>
-          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-light-blue"></i>(678) 502-0711</p>
+          <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-indigo"></i>Senior Undergraduate Engineering Student</p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-indigo"></i>Atlanta, GA</p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-indigo"></i>jackrager@gatech.edu</p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-indigo"></i>(678) 502-0711</p>
           <hr>
 
-          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-light-blue"></i> Programming Skills</b></p>
+          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-indigo"></i> Programming Skills</b></p>
           <p>Excel</p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-light-blue" style="width:90%">90%</div>
+            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:90%">90%</div>
           </div>
           <p>Python</p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-light-blue" style="width:80%">
-              <div class="w3-center w3-text-white">90%</div>
-            </div>
+            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:90%">90%</div>
           </div>
           <p>SQL</p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-light-blue" style="width:75%">75%</div>
+            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:75%">75%</div>
           </div>
           <p>JavaScript</p>
           <div class="w3-light-grey w3-round-xlarge w3-small">
-            <div class="w3-container w3-center w3-round-xlarge w3-light-blue" style="width:50%">70%</div>
+            <div class="w3-container w3-center w3-round-xlarge w3-indigo" style="width:70%">70%</div>
           </div>
           <br>
           <hr>
 
-          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-light-blue"></i>Language Skills</b></p>
+          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-indigo"></i>Language Skills</b></p>
           <p>English</p>
           <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-light-blue" style="height:24px;width:100%;text-align:center;">Fluent (Native)</div>
+            <div class="w3-round-xlarge w3-indigo" style="height:24px;width:100%;text-align:center;">Fluent (Native)</div>
           </div>
           <p>Spanish</p>
           <div class="w3-light-grey w3-round-xlarge">
-            <div class="w3-round-xlarge w3-light-blue" style="height:24px;width:80%;text-align:center;">Fluent</div>
+            <div class="w3-round-xlarge w3-indigo" style="height:24px;width:80%;text-align:center;">Fluent</div>
           </div>
           <br>
         </div>
@@ -91,10 +92,12 @@ div.heade {}
     <div class="w3-twothird">
 
       <div class="w3-container w3-card w3-white">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-light-blue"></i>Education</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-indigo"></i>Education</h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Georgia Institute of Technology / Atlanta, GA </b></h5>
-          <h6 class="w3-text-light-blue"><i class="fa fa-calendar fa-fw w3-margin-right"></i>August 2016 - December 2020</h6>
+          <h5 class="w3-opacity"><b>Georgia Institute of Technology / Atlanta, GA </b>
+            <img class = "w3-right" src="images/gt.png" style="height:80px;width:175px" alt="Georgia Tech">
+          </h5>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>August 2016 - December 2020</h6>
           <ul>
             <li><b>GPA:</b> 3.88</li>
             <li><b>Major:</b> Industrial and Systems Engineering</li>
@@ -107,39 +110,43 @@ div.heade {}
       </div><br>
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-light-blue"></i>Work Experience</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-indigo"></i>Work Experience</h2>
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>Data Analyst Intern / Georgia Tech PACE (Partnership for an Advanced Computing Environment)</b></h5>
-          <h6 class="w3-text-light-blue"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2020 - <span class="w3-tag w3-light-blue w3-round">Present</span></h6>
+          <h5 class="w3-opacity">
+            <img class = "w3-right" src="images/pace1.jfif" style="height:100px;width:140px;opacity:95%" alt="PACE Cluster">
+            <b>Data Analyst Intern / Georgia Tech PACE 
+            <br> (Partnership for an Advanced Computing Environment)</b>
+          </h5>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jun 2020 - <span class="w3-tag w3-indigo w3-round">Present</span></h6>
           <p>Conduct data analysis on the High Performance Computing team for the PACE High Performance Computing project at Georgia Tech. Utilize Spark to analyze big data for the scheduling of computing jobs by Georgia Tech faculty and postdoctorate researchers.</p>
           <hr>
         </div>
          <div class="w3-container">
           <h5 class="w3-opacity"><b>Inbound Process Redesign Capstone Project / HD Supply, Inc.</b></h5>
-          <h6 class="w3-text-light-blue"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2020 - May 2020</h6>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2020 - May 2020</h6>
           <p>Georgia Tech ISYE Senior Design project.</p>
           <hr>
         </div>  
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Solutions and Implementations Co-op / Epicor Software</b></h5>
-          <h6 class="w3-text-light-blue"><i class="fa fa-calendar fa-fw w3-margin-right"></i>May 2018 - Aug 2019</h6>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>May 2018 - Aug 2019</h6>
           <p>Consulted current clients on Epicor’s Warehouse Management System to improve order fulfillment and inventory accuracy. Implemented software at a manufacturing operation in Sacramento, CA to decrease lead times and improve operations.</p>
           <hr>
         </div>
         <div class="w3-container">
           <h5 class="w3-opacity"><b>Product Testing Analyst / Nike Inc.</b></h5>
-          <h6 class="w3-text-light-blue"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Apr 2017 - Present</h6>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Apr 2017 - Present</h6>
           <p>Complete a multitude of 8 to 14-week testing periods on future iterations of flagship Nike running shoes.</p><br>
         </div>
       </div>
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-tasks fa-fw w3-margin-right w3-xxlarge w3-text-light-blue"></i>Projects</h2>
+        <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-tasks fa-fw w3-margin-right w3-xxlarge w3-text-indigo"></i>Projects</h2>
         <div class="w3-container">
-          <a href="jackrager.github.io/routelanta.html">
-            <h5 class="w3-opacity"><b>Routelanta</b></h5>
-          </a>
-          <h6 class="w3-text-light-blue"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Oct 2019 - Dec 2019</h6>
+          <h5> Routelanta <a href="routelanta/index.html">
+            <span class="w3-tag w3-indigo w3-round w3-right w3-opacity w3-hover-grays">Go to app</span>
+          </a></h5>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Oct 2019 - Dec 2019</h6>
           <p>Running route Web Application, utilized a Python backend for API calls on running GPS data and machine learning techniques to classify route difficulty. Visualized data using Leaflet and D3 JavaScript libraries while enabling user interactivity for routes across Atlanta.</p>
           <hr>
         </div>
@@ -152,22 +159,58 @@ div.heade {}
   <!-- End Grid -->
   </div>
   
-  <!-- End Page Container -->
+  <!-- End Resume Container -->
 </div>
 
-<!-- Footer -->
-<footer class="w3-container w3-light-blue w3-center w3-margin-top">
-  <ul>
-  <li class="foot"><a href="https://www.linkedin.com/in/jack-rager-50466314a/">
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
-  </a></li>
-  <li class="foot"><a href="https://github.com/jackrager">
-    <i class="fa fa-github w3-hover-opacity"></i>
-  </a></li>
-  </ul>
+<!-- Photos Container -->
+<div id = "Photos" class="page w3-content w3-card" style="width:75%;display:none">
+  <img src="images/hs2.jpg" alt="Hearts and Soles 5k" class="w3-image">
+  <div class="w3-container w3-center">
+    <p>At the awards ceremony for the 2020 Atlanta Track Club Hearts and Soles 5k</p>
+  </div>
+</div>
+<!-- End Photos Container -->
+
+<!-- Footer for Socials -->
+<footer class="w3-container w3-indigo w3-center w3-margin-top">
+
+  <div class = "w3-content" style="width:30%">
+    <h6>Check me out on these platforms!</h6>
+  </div>
+
+  <div class = "w3-content" style="width:10%">
+    <table class="w3-table w3-centered">
+    <tr>
+      <th><a href="https://www.linkedin.com/in/jack-rager-50466314a/">
+      <i class="fa fa-linkedin w3-hover-opacity w3-xlarge"></i>
+      </a></th>
+      <th><a href="https://github.com/jackrager">
+      <i class="fa fa-github w3-hover-opacity w3-xlarge"></i>
+      </a></th>
+    </tr>
+    <tr>
+      <td class='w3-font-white'>LinkedIn</td>
+      <td class = 'w3-font-white'>Github</td>
+    </tr>
+    </table>
+  </div>
   <hr>
 </footer>
 <!-- End Footer -->
 
+<script>
+
+function openPage(pageName) {
+  var i;
+  var x = document.getElementsByClassName("page");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(pageName).style.display = "block";  
+}
+
+</script>
+
 </body>
+
 </html>
