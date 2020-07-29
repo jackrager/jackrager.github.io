@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Broderick O'Linn | Sports Blog</title>
+<title>Curbside Entertainment Network | Sports Blog</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -15,9 +15,9 @@ and is wrapped around the whole page content, except for the footer in this exam
 <div class="w3-content" style="max-width:100%">
 
 <!-- Header -->
-<header class="w3-container w3-dark-grey w3-container w3-center w3-padding-32" style="width:100%"> 
-  <h1><b>Broj's Sports Takes</b></h1>
-  <p>Prsenting the Opinions and Analysis of Broderick O'Linn</p>
+<header class="w3-container w3-black w3-container w3-center w3-padding-10 w3-top" style="width:100%;position:sticky"> 
+  <h1 class = "w3-font-white"><b>Curbside Entertainment</b></h1>
+  <p>Prsenting Opinions and Analysis from Broderick O'Linn</p>
 </header>
 
 <!-- Grid -->
@@ -56,7 +56,7 @@ and is wrapped around the whole page content, except for the footer in this exam
       <p>Ranking all 22 NBA teams invited to the bubble.</p>
       <div class="w3-row">
         <div class="w3-col m8 s12">
-          <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+          <p><button class="w3-button w3-padding-large w3-white w3-border" onClick="openArt('art1')"><b>READ MORE »</b></button></p>
         </div>
       </div>
     </div>
@@ -135,6 +135,19 @@ and is wrapped around the whole page content, except for the footer in this exam
   <button class="w3-button w3-black w3-disabled w3-padding-large w3-margin-bottom">Previous</button>
   <button class="w3-button w3-black w3-padding-large w3-margin-bottom">Next »</button>
 </footer>
+
+<script>
+
+function openArt(artNum) {
+  var i;
+  var x = document.getElementsByClassName("article");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  document.getElementById(artNum).style.display = "block";  
+}
+
+</script>
 
 </body>
 </html>
