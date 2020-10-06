@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+ <head>
+<title>Routelanta</title>
+<link rel="stylesheet" href="w3.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+<style>
+	.leaflet-popup-content-wrapper{Background: #000;opacity: 0.8;}
+	.leaflet-popup-content{color:aliceblue;opacity: 1;}
+	.clk {position:relative;z-index: 10;}
+	.lis {display:inline-block;}
+
+</style>
+</head>
+
+<body>
+
+<!-- HTML Content -->
+
+<!-- Title -->
+<div id = title class = 'w3-content'> <h1 style="font-family:verdana;" class = "w3-center"> <b>Routelanta</b> </h1> </div>
+
+<!-- Category Dropdown -->
+<div id = selection class = 'w3-content w3-margin-bottom w3-center' style="width:20%"> 
+<div class="w3-dropdown-click w3-center">
+  <button onclick="diffSelect()" class="w3-button w3-black">Click to Select Run Difficulty</button>
+  <div id="diffclick" class="w3-dropdown-content w3-bar-block w3-border clk">
+    <a class="w3-bar-item w3-button clk lis" onClick="getSelectValue('Easy')">Easy</a>
+    <a class="w3-bar-item w3-button clk lis" onClick="getSelectValue('Medium')">Medium</a>
+    <a class="w3-bar-item w3-button clk lis" onClick="getSelectValue('Hard')">Hard</a>
+  </div>
+</div>
+</div>
+
+<!-- Category Labels -->
+<div id="labels" class = "w3-content w3-margin-bottom w3-center" style="height:40px;width:30%;display:none">
+<div id = "AllLab" class="w3-tag w3-yellow w3-round w3-center" ]style="display:flex;align-items:center;justify-content:center;height:0px;width:0px;"></div>
+<div id = "EasyLab" class="w3-tag w3-green w3-round w3-center" style="display:flex;align-items:center;justify-content:center;height:40px;width:100px"> 
+	<button onclick="this.parentElement.style.display='none';labClose('Easy')" class="w3-button w3-left w3-hover-green" style= "height:24px;">&times;</button> 
+	<p class = "w3-right">Easy</span>
+</div>
+<div id = "MediumLab" class="w3-tag w3-blue w3-round w3-center" style="display:flex;align-items:center;justify-content:center;height:40px;width:120px"> 
+	<button onclick="this.parentElement.style.display='none';labClose('Medium')" class="w3-button w3-left w3-hover-blue" style= "height:24px;">&times;</button> 
+	<p class = "w3-right">Medium</span>
+</div>
+<div id = "HardLab" class="w3-tag w3-red w3-round w3-center" style="display:flex;align-items:center;justify-content:center;height:40px;width:100px"> 
+	<button onclick="this.parentElement.style.display='none';labClose('Hard')" class="w3-button w3-left w3-hover-red" style= "height:24px;">&times;</button> 
+	<p class = "w3-right">Hard</span>
+</div>
+</div>
+
+<!-- Map -->
+<div id="map" style = "height:550px;width:1000px" class = "w3-content w3-border"></div>
+
+</body>
+
+<!-- JS -->
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+		integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+		crossorigin=""></script>
+<script src="d3.min.js"></script>
+<script type="text/javascript" src="Polyline.encoded.js"></script>
+<script>
+
+  //Close box and set value to 0
+  function labClose(boxVal) {
+  	selects[boxVal] = 0
+  }
+
+  //Open Selection Dropdown
+  function diffSelect() {
+  var x = document.getElementById("diffclick");
+  	if (x.className.indexOf("w3-show") == -1) { 
+    	x.className += " w3-show";
+  	} else {
+    	x.className = x.className.replace(" w3-show", "");
+  	}
+  }
+
+  //Use for Category Selection
+  var selects = {"All":1,"Easy":0,"Medium":0,"Hard":0}
+  function getSelectValue(dropVal) {
+  	selects["All"] = 0
+  	selects[dropVal] = 1
+  	var dropLab1 = dropVal + "Lab";
+  	document.getElementById("labels").style.display = "block";
+  	var elems = document.getElementsByClassName('hid');
+		for (var i=0;i<elems.length;i+=1){
+  			elems[i].style.display = 'none';
+		}
+	var x;
+	for (x in selects) {
+		var dropLab2 = x + "Lab"
+  		if (selects[x] == 1) {
+  			document.getElementById(dropLab2).style.display = "inline-block"}
+  		else {
+  			document.getElementById(dropLab2).style.display = "none"
+  		}
+	}
+  }
+
+  //Create Map Box
+  var mymap = L.map('map',{minZoom:13}).setView([33.769016, -84.384956], 14);
+   mymap.setMaxBounds(mymap.getBounds());
+
+  L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(mymap);
+  const attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+  var all_layer = new L.layerGroup();
+  all_layer.addTo(mymap);
+
+  //All other vars
+
+  //Create mouse click marker
+  var MarkerIcon = L.icon({riseOnHover: true, iconUrl: 'pictures/Sports-Running-Man-icon.png', iconSize: [50, 60], iconAnchor: [25, 30]});
+  var locIcon = L.icon({riseOnHover: true,iconUrl: 'pictures/location.svg', iconSize: [30, 40], iconAnchor: [15, 20]});
+
+  //Vars: layergroup, marker, popup
+  var pied_lay = new L.layerGroup(), cent_lay = new L.layerGroup(), wood_lay = new L.layerGroup(), centr_lay = new L.layerGroup(), 
+      atl_lay = new L.layerGroup(), free_lay = new L.layerGroup(), gt_lay = new L.layerGroup(), o4w_lay = new L.layerGroup();
+
+  var pied_mark = L.marker(), cent_mark = L.marker(), wood_mark = L.marker(), centr_mark = L.marker(), 
+  	  atl_mark = L.marker(), free_mark = L.marker(), gt_mark = L.marker(), o4w_mark = L.marker();
+
+  var pied_pop = L.popup(), cent_pop = L.popup(), wood_pop = L.popup(), centr_pop = L.popup(), atl_pop = L.popup(), 
+      free_pop = L.popup(), gt_pop = L.popup(), o4w_pop = L.popup();
+
+  //JSON object for marker info
+  var places = [{name:'Piedmont Park',loc:[33.784912, -84.374285],corners:[[33.781858, -84.369437],[33.781898, -84.378294],[33.793664, -84.378219],[33.793949, -84.36749]],pic:'<img src="pictures/piedmont_1.jpg" height="80px" width="80px"/>',
+  	  lay:pied_lay,mark:pied_mark,pop:pied_pop},
+  	  {name:'Centennial Olympic Park',loc:[33.76042, -84.393544],corners:[[33.758314, -84.392107],[33.758096, -84.395144],[33.762346, -84.395646],
+  	  [33.762473, -84.392173]],pic:'<img src="pictures/centennial.jpg" height="80px" width="80px"/>',
+  	  lay:cent_lay,mark:cent_mark,pop:cent_pop},
+  	  {name:'Woodruff Park',loc:[33.755131, -84.388720],corners:[[33.754312, -84.387602],[33.754414, -84.389732],[33.756651, -84.389009],
+  	  [33.756515, -84.387492]],pic:'<img src="pictures/woodruff2.jpg" height="80px" width="80px"/>',
+  	  lay:wood_lay,mark:wood_mark,pop:wood_pop},
+  	  {name:'Central Park',loc:[33.768751, -84.376038],corners:[[33.767076, -84.374793],[33.767271, -84.377819],[33.770134, -84.377802],
+  	  [33.770023, -84.374692]],pic:'<img src="pictures/central.jpg" height="80px" width="80px"/>',
+  	  lay:centr_lay,mark:centr_mark,pop:centr_pop},
+  	  {name:'Atlantic Station',loc:[33.791424, -84.399011],corners:[[33.791005, -84.393088],[33.790791, -84.400029],[33.794795, -84.400008],
+  	  [33.794278, -84.393002]],pic:'<img src="pictures/atlantic.jpg" height="80px" width="80px"/>',
+  	  lay:atl_lay,mark:atl_mark,pop:atl_pop},
+  	  {name:'Freedom Park',loc:[33.764466, -84.355901],corners:[[33.759974, -84.349978],[33.760087, -84.358785],[33.773547, -84.359759],
+  	  [33.773628, -84.348790]],pic:'<img src="pictures/freedom.jpg" height="80px" width="80px"/>',
+  	  lay:free_lay,mark:free_mark,pop:free_pop},
+  	  {name:'Georgia Tech',loc:[33.772355, -84.395026],corners:[[33.770623, -84.391105],[33.770753, -84.396416],[33.774793, -84.396279],
+  	  [33.774728, -84.391203]],pic:'<img src="pictures/gt.jpg" height="80px" width="80px"/>',
+  	  lay:gt_lay,mark:gt_mark,pop:gt_pop},
+  	  {name:'Old 4th Ward Park',loc:[33.770712, -84.365266],corners:[[33.765081, -84.364268],[33.764913, -84.366041],[33.770977, -84.366558],
+  	  [33.770959, -84.364448]],pic:'<img src="pictures/o4w.jpg" height="80px" width="80px"/>',
+  	  lay:o4w_lay,mark:o4w_mark,pop:o4w_pop}]
+
+
+  //Get all running data from CSV
+  var acts = []
+  var dataset = d3.dsv(",","activities.csv", function(d)
+  {
+    acts.push({id:d["Run ID"], distance:parseFloat(d["Distance"]),time:parseFloat(d["Time"]),elev:parseFloat(d["Elevation Gain"]),lat:parseFloat(d["Start Latitude"]),lon:parseFloat(d["Start Longitude"]),encoded:d["Polyline"], difficulty:parseInt(d["Difficulty"])})
+    return d;
+  }).then(function(data){
+
+    //Function to assign color to line based on difficulty
+    function getColor(d) {
+        return d == 0 ? '#3CFF33' :
+	    d == 1  ? '#333CFF' :
+	    d == 2  ? '#FF333C' :
+	    '#17202A';
+	}
+    //Create acts as main JSON object
+    acts.forEach(function (arrayItem) {
+	  arrayItem.coordinates = L.Polyline.fromEncoded(arrayItem.encoded).getLatLngs();
+	  var dif = arrayItem.difficulty;
+	  //Create polyline
+	  arrayItem.line = L.polyline(arrayItem.coordinates,{color: getColor(dif),weight: 3,opacity: .65,lineJoin: 'round'})
+	    if (dif == 0) {
+				arrayItem.diff = "Easy"
+			} else if (dif == 1) {
+				arrayItem.diff = "Medium"
+			} else {
+				arrayItem.diff = "Hard"
+			}
+    });
+
+    acts.forEach(function (arrayItem){
+		var diff = arrayItem.diff;
+		var dist2 = arrayItem.distance;
+		var dist = dist2.toFixed(2)
+		var elev = arrayItem.elev
+		arrayItem.line.on('mouseover',function(e) {
+			arrayItem.line.setStyle({opacity : 1, weight:5});
+			var pop = L.popup()
+			    .setLatLng(e.latlng)
+				.setContent("<b>" + diff + " Run</b><br>Run Distance is: " + dist + " miles <br> Elevation Gain: " + elev + " feet")
+				.openOn(mymap);
+		});
+		arrayItem.line.on('mouseout',function(e) {
+			arrayItem.line.setStyle({opacity : 0.65,weight: 3});
+		});
+	});
+
+    //Match with '.then'
+	});
+    //END DSV
+
+  mymap.on('click', onMapClick);
+  const marker = L.marker([0,0], {icon: MarkerIcon }).addTo(mymap);
+
+  function onMapClick(e) {
+    //Move marker to clicked location
+	marker.setLatLng((e.latlng));
+	acts.forEach(function (arrayItem) {
+	  all_layer.removeLayer(arrayItem.line)
+	});
+	places.forEach(function (place){
+	  mymap.removeLayer(place.lay)
+	});
+    //Loop through every activity, decide whether to add to map
+	acts.forEach(function (arrayItem) {
+	    arrayItem.coordinates.forEach(function (cords) {
+	        dist = cords.distanceTo(e.latlng)
+	        if ((dist < 200 && selects[arrayItem.diff] == 1) || (dist <200 && selects["All"] == 1)) {
+	        	arrayItem.line.addTo(all_layer)}})
+	});
+  };
+
+  //Open routes for each location
+  function openRoute(place) {
+  	return function(event) {
+  		//Get rid of any other open location runs
+  		places.forEach(function (oplace){
+	  	  mymap.removeLayer(oplace.lay)
+		});
+  		//Show map layer for clicked place
+	  	place.lay.addTo(mymap);
+	  	//Loop to add routes if any part of line is within rectangular location boundary
+	  	stats = {Easy:0,Medium:0,Hard:0}
+	    acts.forEach(function (arrayItem) {
+		    arrayItem.coordinates.forEach(function (cords) {
+		        if (cords.lat>place.corners[0][0] && cords.lat>place.corners[1][0] && cords.lat<place.corners[2][0] && 
+		        	cords.lat<place.corners[3][0]) {
+			        	if (cords.lng<place.corners[0][1] && cords.lng>place.corners[1][1] && 
+			        		cords.lng>place.corners[2][1] && cords.lng<place.corners[3][1]) {
+			        			arrayItem.line.addTo(place.lay)}}})})
+    };
+  };
+
+  //Loop to populate objects for each place
+  places.forEach(function (place) {
+  	//Marker
+  	place.mark.setLatLng(place.loc)
+  	place.mark.setIcon(locIcon)
+  	place.mark.addTo(mymap)
+  	//Popup
+  	place.mark.bindPopup(place.pop)
+  	place.pop.setContent(place.name + "<br>" + place.pic)
+  	place.mark.on('click',openRoute(place));
+  	//{param:place},
+  });
+
+//END JS
+</script>
+</html>
