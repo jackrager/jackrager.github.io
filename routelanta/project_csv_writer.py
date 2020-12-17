@@ -59,16 +59,24 @@ def main(args):
     acts_df_clean = acts_df.drop(acts_df[acts_df['Start Latitude']>34].index)
     acts_df_clean = acts_df_clean.drop(acts_df[acts_df['Start Latitude']<33].index).reset_index()
 
-    clust_df = acts_df_clean.filter(['Distance','Elevation Grade'], axis=1)
-    clust_df['Distance'] = clust_df['Distance'].apply(lambda x: pow(x*150,.35))
-    clust_df['Elevation Grade'] = clust_df['Elevation Grade'].apply(lambda x: pow(x*150,.8))
-    kmeans = KMeans(n_clusters=6,random_state=3425)
-    kmeans.fit(clust_df)
-    labels = pd.Series(kmeans.predict(clust_df),name='Difficulty').to_frame().reset_index()
-    clust_df = pd.concat([clust_df, labels], axis=1, sort=False)
-    acts_df_clean = pd.concat([acts_df_clean, labels], axis=1, sort=False)
-    maps = {0:2,1:1,2:0,3:2,4:0,5:1}
-    acts_df_clean['Difficulty'] = acts_df_clean['Difficulty'].apply(lambda x: maps[x])
+    #DIST LABEL --------------------------------------------------------------------------------
+    conditions = [(acts_df['distance'] <= 5),
+    (acts_df['distance'] > 5) & (acts_df['distance'] <= 9),
+    (acts_df['distance'] > 9)]
+    values = ['Short', 'Medium', 'Long']
+    acts_df['Difficulty'] = np.select(conditions, values)
+
+    #DIFF LABEL ---------------------------------------------------------------------------------
+    #clust_df = acts_df_clean.filter(['Distance','Elevation Grade'], axis=1)
+    #clust_df['Distance'] = clust_df['Distance'].apply(lambda x: pow(x*150,.35))
+    #clust_df['Elevation Grade'] = clust_df['Elevation Grade'].apply(lambda x: pow(x*150,.8))
+    #kmeans = KMeans(n_clusters=6,random_state=3425)
+    #kmeans.fit(clust_df)
+    #labels = pd.Series(kmeans.predict(clust_df),name='Difficulty').to_frame().reset_index()
+    #clust_df = pd.concat([clust_df, labels], axis=1, sort=False)
+    #acts_df_clean = pd.concat([acts_df_clean, labels], axis=1, sort=False)
+    #maps = {0:2,1:1,2:0,3:2,4:0,5:1}
+    #acts_df_clean['Difficulty'] = acts_df_clean['Difficulty'].apply(lambda x: maps[x])
 
     acts_df_clean.to_csv('activities.csv', index=False)
 
