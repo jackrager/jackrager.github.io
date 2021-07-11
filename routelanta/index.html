@@ -37,7 +37,7 @@
 <!-- Category Labels -->
 <div id="labels" class = "w3-content w3-margin-bottom w3-center" style="height:40px;width:30%;display:none">
 <div id = "AllLab" class="w3-tag w3-yellow w3-round w3-center" ]style="display:flex;align-items:center;justify-content:center;height:0px;width:0px;"></div>
-<div id = "ShortLab" class="w3-tag w3-green w3-round w3-center" style="display:flex;align-items:center;justify-content:center;height:40px;width:100px"> 
+<div id = "ShortLab" class="w3-tag w3-green w3-round w3-center" style="display:flex;align-items:center;justify-content:center;height:40px;width:120px"> 
 	<button onclick="this.parentElement.style.display='none';labClose('Short')" class="w3-button w3-left w3-hover-green" style= "height:24px;">&times;</button> 
 	<p class = "w3-right">Short</span>
 </div>
@@ -164,6 +164,8 @@
   }).then(function(data){
 
     //Function to assign color to line based on difficulty
+    //BETTER COLORS
+    //FIX THE "short" word needs to show all
     function getColor(d) {
         return d == 0 ? '#3CFF33' :
 	    d == 1  ? '#333CFF' :
