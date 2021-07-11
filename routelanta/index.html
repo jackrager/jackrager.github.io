@@ -173,8 +173,7 @@
     //Create acts as main JSON object
     acts.forEach(function (arrayItem) {
 	  arrayItem.coordinates = L.Polyline.fromEncoded(arrayItem.encoded).getLatLngs();
-	  var dif = arrayItem.Difficulty;
-    console.log(arrayItem.Difficulty);
+	  var dif = arrayItem.difficulty;
 	  //Create polyline
 	  arrayItem.line = L.polyline(arrayItem.coordinates,{color: getColor(dif),weight: 3,opacity: .65,lineJoin: 'round'})
 	    if (dif == 'Short') {
