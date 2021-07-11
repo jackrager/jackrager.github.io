@@ -159,7 +159,7 @@
   var acts = []
   var dataset = d3.dsv(",","activities.csv", function(d)
   {
-    acts.push({id:d["Run ID"], distance:parseFloat(d["Distance"]),time:parseFloat(d["Time"]),elev:parseFloat(d["Elevation Gain"]),lat:parseFloat(d["Start Latitude"]),lon:parseFloat(d["Start Longitude"]),encoded:d["Polyline"], difficulty:parseString(d["Difficulty"])})
+    acts.push({id:d["Run ID"], distance:parseFloat(d["Distance"]),time:parseFloat(d["Time"]),elev:parseFloat(d["Elevation Gain"]),lat:parseFloat(d["Start Latitude"]),lon:parseFloat(d["Start Longitude"]),encoded:d["Polyline"], difficulty:d["Difficulty"]})
     return d;
   }).then(function(data){
 
