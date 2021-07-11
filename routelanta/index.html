@@ -173,12 +173,12 @@
     //Create acts as main JSON object
     acts.forEach(function (arrayItem) {
 	  arrayItem.coordinates = L.Polyline.fromEncoded(arrayItem.encoded).getLatLngs();
-	  var dif = arrayItem.difficulty;
+	  var dif = arrayItem.Difficulty;
 	  //Create polyline
 	  arrayItem.line = L.polyline(arrayItem.coordinates,{color: getColor(dif),weight: 3,opacity: .65,lineJoin: 'round'})
-	    if (dif == 0) {
+	    if (dif == 'Short') {
 				arrayItem.diff = "Short"
-			} else if (dif == 1) {
+			} else if (dif == 'Medium') {
 				arrayItem.diff = "Medium"
 			} else {
 				arrayItem.diff = "Long"

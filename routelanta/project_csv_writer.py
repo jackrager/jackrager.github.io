@@ -60,11 +60,11 @@ def main(args):
     acts_df_clean = acts_df_clean.drop(acts_df[acts_df['Start Latitude']<33].index).reset_index()
 
     #DIST LABEL --------------------------------------------------------------------------------
-    conditions = [(acts_df['distance'] <= 5),
-    (acts_df['distance'] > 5) & (acts_df['distance'] <= 9),
-    (acts_df['distance'] > 9)]
+    conditions = [(acts_df_clean['Distance'] <= 5),
+    (acts_df_clean['Distance'] > 5) & (acts_df_clean['Distance'] <= 9),
+    (acts_df_clean['Distance'] > 9)]
     values = ['Short', 'Medium', 'Long']
-    acts_df['Difficulty'] = np.select(conditions, values)
+    acts_df_clean['Difficulty'] = np.select(conditions, values)
 
     #DIFF LABEL ---------------------------------------------------------------------------------
     #clust_df = acts_df_clean.filter(['Distance','Elevation Grade'], axis=1)
