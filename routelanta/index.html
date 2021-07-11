@@ -177,11 +177,11 @@
 	  //Create polyline
 	  arrayItem.line = L.polyline(arrayItem.coordinates,{color: getColor(dif),weight: 3,opacity: .65,lineJoin: 'round'})
 	    if (dif == 'Short') {
-				arrayItem.diff = 0
+				arrayItem.diff = "Short"
 			} else if (dif == 'Medium') {
-				arrayItem.diff = 1
+				arrayItem.diff = "Medium"
 			} else {
-				arrayItem.diff = 2
+				arrayItem.diff = "Long"
 			}
     });
 
