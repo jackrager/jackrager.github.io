@@ -23,13 +23,22 @@ div.heade {}
   <h1 class = "w3-text-white" style="text-align:center;">Jack Richard Rager</h1>
 
   <div class="w3-bar w3-indigo">
-      <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Resume')">Resume</button>
+      <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Home')">Home</button>
+      <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('CV')">CV</button>
       <!-- <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Photos')">Photos</button>-->
   </div>
 </div>
 
-<!-- Main Page Container -->
-<div id = "Resume" class="page w3-content w3-indigo w3-margin-top" style="max-width:1400px;">
+<!-- Home Page Container -->
+<div id = "Home" class="page w3-content w3-indigo w3-margin-top" style="max-width:1400px;">
+
+  <img src="images/home1.jpg" style="height:60%;width:100%;opacity:0.95" alt="Background">
+
+<!-- End Home Container -->
+</div>
+
+<!-- Resume Page Container -->
+<div id = "CV" class="page w3-content w3-indigo w3-margin-top" style="max-width:1400px;">
   <hr>
 
   <!-- Grid -->
@@ -198,6 +207,8 @@ div.heade {}
 <!-- End Footer -->
 
 <script>
+
+openPage("Home")
 
 function openPage(pageName) {
   var i;
