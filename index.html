@@ -23,6 +23,7 @@ li.foot {display:inline-block;}
 .imgtext {position: relative;text-align: right;color: white; display: inline-block;}
 .bottom-right-title {position: absolute;bottom: 18%;right: 3%; font-size: xx-large;}
 .bottom-right-desc {position: absolute;bottom: 8%;right: 3%; font-size: large;}
+.strava-embed-root .activity-embed {align-content: center}
 
 </style>
 
@@ -37,6 +38,7 @@ li.foot {display:inline-block;}
       <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Home')">Home</button>
       <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('CV')">CV</button>
       <!-- <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Photos')">Photos</button>-->
+      <button class="w3-bar-item w3-button w3-border-bottom w3-border-white" onClick="openPage('Running')">Running</button>
   </div>
 </div>
 
@@ -104,6 +106,10 @@ li.foot {display:inline-block;}
           <div class="w3-light-grey w3-round-xlarge">
             <div class="w3-round-xlarge w3-indigo" style="height:24px;width:80%;text-align:center;">Fluent</div>
           </div>
+          <p>Japanese</p>
+          <div class="w3-light-grey w3-round-xlarge">
+            <div class="w3-round-xlarge w3-indigo" style="height:24px;width:40%;text-align:center;">Intermediate</div>
+          </div>
           <br>
         </div>
       </div><br>
@@ -133,12 +139,20 @@ li.foot {display:inline-block;}
 
       <div class="w3-container w3-card w3-white w3-margin-bottom">
         <h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-indigo"></i>Work Experience</h2>
+                <div class="w3-container">
+          <h5 class="w3-opacity">
+            <b>Business Analyst II, Data Governance / PlayStation - Sony Interactive Entertainment</b>
+          </h5>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Dec 2022 - <span class="w3-tag w3-indigo w3-round">Present</span></h6>
+          <p>Operationalize privacy requirments to business processes. Review modifications to consumer data collection.</p>
+          <hr>
+        </div>
         <div class="w3-container">
           <h5 class="w3-opacity">
             <b>Technical Implementation Consultant / Onetrust LLC</b>
           </h5>
-          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2021 - <span class="w3-tag w3-indigo w3-round">Present</span></h6>
-          <p>Provide expert services for compliance with global Data Privacy legislation and insights into personal data collection. Integrate with CRM and Databases to provide a centralized privacy platform for marketing and communication channels. Increase client revenue opportunities and lead conversion by developing customer interfaces for preference management.</p>
+          <h6 class="w3-text-indigo"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Jan 2021 - Nov 2022</h6>
+          <p>Provided expert services for compliance with global Data Privacy legislation and insights into personal data collection. Integrated with CRM and Databases to provide a centralized privacy platform for marketing and communication channels. Increased client revenue opportunities and lead conversion by developing customer interfaces for preference management.</p>
           <hr>
         </div>
         <div class="w3-container">
@@ -201,6 +215,41 @@ li.foot {display:inline-block;}
   </div>
 </div>
 <!-- End Photos Container -->
+
+<!-- Running Container -->
+<div id = "Running" class="page w3-content w3-card" style="width:75%;display:none">
+  <div class="w3-container w3-center">
+    <div class="strava-embed-placeholder w3-container w3-center" data-embed-type="activity" data-embed-id="1434872385"></div>
+    <script src="https://strava-embeds.com/embed.js"></script>
+    <p>2018 Albany Marathon</p>
+  </div>
+  <div class="w3-container w3-center">
+    <div class="strava-embed-placeholder w3-container w3-center" data-embed-type="activity" data-embed-id="2294608119"></div>
+    <script src="https://strava-embeds.com/embed.js"></script>
+    <p>2019 Boston Marathon</p>
+  </div>
+  <div class="w3-container w3-center">
+    <div class="strava-embed-placeholder w3-container w3-center" data-embed-type="activity" data-embed-id="3163436341"></div>
+    <script src="https://strava-embeds.com/embed.js"></script>
+    <p>2020 Albany Marathon</p>
+  </div>
+  <div class="w3-container w3-center">
+    <div class="strava-embed-placeholder w3-container w3-center" data-embed-type="activity" data-embed-id="6093947284"></div>
+    <script src="https://strava-embeds.com/embed.js"></script>
+    <p>2021 Chicago Marathon</p>
+  </div>
+  <div class="w3-container w3-center">
+    <div class="strava-embed-placeholder w3-container w3-center" data-embed-type="activity" data-embed-id="6533956117"></div>
+    <script src="https://strava-embeds.com/embed.js"></script>
+    <p>2022 Houston Marathon</p>
+  </div>
+  <div class="w3-container w3-center">
+    <div class="strava-embed-placeholder w3-container w3-center" data-embed-type="activity" data-embed-id="8072359101"></div>
+    <script src="https://strava-embeds.com/embed.js"></script>
+    <p>2022 Indianapolis Marathon</p>
+  </div>
+</div>
+<!-- End Running Container -->
 
 <!-- Footer for Socials -->
 <footer class="w3-container w3-indigo w3-margin-top row footer" style= "width:100%;align-items:center">
